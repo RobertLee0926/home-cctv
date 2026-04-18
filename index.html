@@ -33,22 +33,14 @@
     align-items: center;
   }
 
-  /* ── SCAN LINE OVERLAY ── */
   body::before {
     content: '';
     position: fixed; inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0,0,0,0.08) 2px,
-      rgba(0,0,0,0.08) 4px
-    );
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.06) 2px, rgba(0,0,0,0.06) 4px);
     pointer-events: none;
     z-index: 9999;
   }
 
-  /* ── HEADER ── */
   header {
     width: 100%;
     max-width: 680px;
@@ -58,354 +50,117 @@
     gap: 12px;
   }
 
-  .logo {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    color: var(--green);
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    opacity: 0.8;
-  }
+  .logo { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--green); letter-spacing: 3px; opacity: 0.8; }
 
-  .rec-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--red);
-    animation: blink 1.2s ease-in-out infinite;
-    display: none;
-  }
+  .rec-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); animation: blink 1.2s ease-in-out infinite; display: none; }
   .rec-dot.active { display: block; }
-
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.1} }
 
-  /* ── MAIN CARD ── */
-  main {
-    width: 100%;
-    max-width: 680px;
-    padding: 16px 20px 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
+  main { width: 100%; max-width: 680px; padding: 16px 20px 32px; display: flex; flex-direction: column; gap: 16px; }
 
-  /* ── MODE SELECTOR ── */
-  .mode-selector {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
+  .mode-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
   .mode-btn {
-    padding: 14px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    background: var(--bg2);
-    color: var(--text2);
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
+    padding: 14px; border-radius: var(--radius); border: 1px solid var(--border);
+    background: var(--bg2); color: var(--text2); font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
   }
   .mode-btn .icon { font-size: 22px; }
   .mode-btn:hover { border-color: var(--green); color: var(--text); }
-  .mode-btn.active {
-    border-color: var(--green);
-    background: rgba(0,229,160,0.08);
-    color: var(--green);
-  }
+  .mode-btn.active { border-color: var(--green); background: rgba(0,229,160,0.08); color: var(--green); }
 
-  /* ── VIDEO BOX ── */
   .video-wrap {
-    position: relative;
-    border-radius: var(--radius);
-    overflow: hidden;
-    border: 1px solid var(--border);
-    background: #000;
-    aspect-ratio: 16/9;
+    position: relative; border-radius: var(--radius); overflow: hidden;
+    border: 1px solid var(--border); background: #000; aspect-ratio: 16/9;
   }
 
-  video, canvas {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+  video, #remoteImg {
+    width: 100%; height: 100%; object-fit: cover; display: block;
   }
+  #remoteImg { display: none; }
 
-  .video-overlay {
-    position: absolute; inset: 0;
-    pointer-events: none;
-  }
-
-  /* corner brackets */
+  .video-overlay { position: absolute; inset: 0; pointer-events: none; }
   .video-overlay::before, .video-overlay::after {
-    content: '';
-    position: absolute;
-    width: 28px; height: 28px;
-    border-color: var(--green);
-    border-style: solid;
-    opacity: 0.7;
+    content: ''; position: absolute; width: 28px; height: 28px;
+    border-color: var(--green); border-style: solid; opacity: 0.7;
   }
   .video-overlay::before { top: 10px; left: 10px; border-width: 2px 0 0 2px; }
   .video-overlay::after  { bottom: 10px; right: 10px; border-width: 0 2px 2px 0; }
+  .corner-br { position: absolute; bottom: 10px; left: 10px; width: 28px; height: 28px; border: 2px solid var(--green); border-right: none; border-top: none; opacity: 0.7; }
+  .corner-tr { position: absolute; top: 10px; right: 10px; width: 28px; height: 28px; border: 2px solid var(--green); border-left: none; border-bottom: none; opacity: 0.7; }
 
-  .corner-br {
-    position: absolute; bottom: 10px; left: 10px;
-    width: 28px; height: 28px;
-    border: 2px solid var(--green);
-    border-right: none; border-top: none;
-    opacity: 0.7;
-  }
-  .corner-tr {
-    position: absolute; top: 10px; right: 10px;
-    width: 28px; height: 28px;
-    border: 2px solid var(--green);
-    border-left: none; border-bottom: none;
-    opacity: 0.7;
-  }
-
-  .timestamp {
-    position: absolute; top: 16px; left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    color: var(--green);
-    opacity: 0.8;
-    letter-spacing: 1px;
-  }
-
-  .status-badge {
-    position: absolute; bottom: 14px; right: 14px;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 10px;
-    color: var(--green);
-    letter-spacing: 2px;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
+  .timestamp { position: absolute; top: 16px; left: 50%; transform: translateX(-50%); font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--green); opacity: 0.8; letter-spacing: 1px; }
+  .status-badge { position: absolute; bottom: 14px; right: 14px; font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--green); letter-spacing: 2px; opacity: 0; transition: opacity 0.3s; }
   .status-badge.show { opacity: 1; }
 
-  .no-signal {
-    position: absolute; inset: 0;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 10px;
-    color: var(--text2);
-    font-size: 13px;
-  }
+  .no-signal { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: var(--text2); font-size: 13px; }
   .no-signal .ns-icon { font-size: 36px; opacity: 0.3; }
 
-  /* ── INFO PANEL ── */
-  .info-panel {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
+  .info-panel { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .info-item { display: flex; flex-direction: column; gap: 3px; }
-  .info-label {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 2px;
-    color: var(--text2);
-    text-transform: uppercase;
-  }
-  .info-value {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text);
-  }
+  .info-label { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 2px; color: var(--text2); text-transform: uppercase; }
+  .info-value { font-size: 14px; font-weight: 500; color: var(--text); }
   .info-value.green { color: var(--green); }
   .info-value.red   { color: var(--red); }
   .info-value.amber { color: var(--amber); }
 
-  /* ── CONTROLS ── */
-  .controls {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+  .controls { display: flex; flex-direction: column; gap: 10px; }
 
-  .btn {
-    width: 100%;
-    padding: 15px;
-    border-radius: var(--radius);
-    border: none;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-    letter-spacing: 0.5px;
-  }
-  .btn-primary {
-    background: var(--green);
-    color: #000;
-  }
+  .btn { width: 100%; padding: 15px; border-radius: var(--radius); border: none; font-family: 'Noto Sans KR', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+  .btn-primary { background: var(--green); color: #000; }
   .btn-primary:hover { background: var(--green2); transform: translateY(-1px); }
-  .btn-primary:active { transform: translateY(0); }
   .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-
-  .btn-secondary {
-    background: transparent;
-    color: var(--red);
-    border: 1px solid var(--red);
-  }
+  .btn-secondary { background: transparent; color: var(--red); border: 1px solid var(--red); }
   .btn-secondary:hover { background: rgba(255,69,69,0.08); }
-
-  .btn-outline {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--border);
-  }
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
   .btn-outline:hover { border-color: var(--green); color: var(--green); }
 
-  /* ── ROOM CODE BOX ── */
-  .code-box {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px;
-    text-align: center;
-    display: none;
-  }
+  .code-box { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; text-align: center; display: none; }
   .code-box.show { display: block; }
+  .code-label { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 3px; color: var(--text2); margin-bottom: 10px; }
+  .code-value { font-family: 'Share Tech Mono', monospace; font-size: 36px; font-weight: 700; color: var(--green); letter-spacing: 10px; margin-bottom: 12px; }
+  .code-hint { font-size: 12px; color: var(--text2); line-height: 1.6; }
 
-  .code-label {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: var(--text2);
-    margin-bottom: 10px;
-  }
-
-  .code-value {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--green);
-    letter-spacing: 8px;
-    margin-bottom: 12px;
-  }
-
-  .code-hint {
-    font-size: 12px;
-    color: var(--text2);
-    line-height: 1.6;
-  }
-
-  /* ── JOIN INPUT ── */
-  .join-wrap {
-    display: none;
-    flex-direction: column;
-    gap: 10px;
-  }
+  .join-wrap { display: none; flex-direction: column; gap: 10px; }
   .join-wrap.show { display: flex; }
 
-  .code-input {
-    width: 100%;
-    padding: 14px 16px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    background: var(--bg3);
-    color: var(--text);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 24px;
-    text-align: center;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    outline: none;
-    transition: border-color 0.2s;
-  }
+  .code-input { width: 100%; padding: 14px 16px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--bg3); color: var(--text); font-family: 'Share Tech Mono', monospace; font-size: 28px; text-align: center; letter-spacing: 8px; text-transform: uppercase; outline: none; transition: border-color 0.2s; }
   .code-input:focus { border-color: var(--green); }
-  .code-input::placeholder { color: var(--text2); letter-spacing: 4px; font-size: 18px; }
+  .code-input::placeholder { color: var(--text2); font-size: 18px; letter-spacing: 4px; }
 
-  /* ── MOTION ALERT ── */
-  .motion-bar {
-    display: none;
-    align-items: center;
-    gap: 10px;
-    background: rgba(255,184,48,0.1);
-    border: 1px solid rgba(255,184,48,0.3);
-    border-radius: var(--radius);
-    padding: 12px 16px;
-    animation: slideIn 0.3s ease;
-  }
+  .motion-bar { display: none; align-items: center; gap: 10px; background: rgba(255,184,48,0.1); border: 1px solid rgba(255,184,48,0.3); border-radius: var(--radius); padding: 12px 16px; animation: slideIn 0.3s ease; }
   .motion-bar.show { display: flex; }
-  .motion-icon { font-size: 18px; }
   .motion-text { font-size: 13px; color: var(--amber); flex: 1; }
   .motion-time { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--amber); opacity: 0.7; }
+  @keyframes slideIn { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
 
-  @keyframes slideIn { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
-
-  /* ── LOG ── */
-  .log-wrap {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 12px 14px;
-    max-height: 120px;
-    overflow-y: auto;
-    display: none;
-  }
-  .log-wrap.show { display: block; }
+  .log-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; max-height: 120px; overflow-y: auto; }
   .log-title { font-family: 'Share Tech Mono', monospace; font-size: 9px; letter-spacing: 2px; color: var(--text2); margin-bottom: 8px; }
   .log-line { font-family: 'Share Tech Mono', monospace; font-size: 11px; color: var(--text2); line-height: 1.8; }
-  .log-line.ok { color: var(--green); }
-  .log-line.err { color: var(--red); }
+  .log-line.ok   { color: var(--green); }
+  .log-line.err  { color: var(--red); }
   .log-line.warn { color: var(--amber); }
 
-  /* ── MOTION SENSITIVITY ── */
-  .slider-row {
-    display: flex; align-items: center; gap: 10px;
-    display: none;
-  }
+  .slider-row { display: none; align-items: center; gap: 10px; }
   .slider-row.show { display: flex; }
   .slider-label { font-size: 12px; color: var(--text2); min-width: 70px; }
-  input[type=range] {
-    flex: 1;
-    accent-color: var(--green);
-    height: 4px;
-  }
+  input[type=range] { flex: 1; accent-color: var(--green); }
   .slider-val { font-family: 'Share Tech Mono', monospace; font-size: 12px; color: var(--green); min-width: 28px; text-align: right; }
 
-  /* ── FOOTER ── */
-  footer {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 10px;
-    color: var(--text2);
-    letter-spacing: 2px;
-    padding: 12px 0 24px;
-    opacity: 0.4;
-  }
+  footer { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--text2); letter-spacing: 2px; padding: 12px 0 24px; opacity: 0.4; }
 
-  /* ── PEERJS STATUS ── */
-  .peer-status {
-    font-size: 11px; color: var(--text2);
-    text-align: center; padding: 4px 0;
-    display: none;
-  }
-  .peer-status.show { display: block; }
+  .fps-bar { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--text2); text-align: center; padding: 4px 0; }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo">🏠 Home CCTV</div>
+  <div class="logo">🏠 Home CCTV v2</div>
   <div class="rec-dot" id="recDot"></div>
 </header>
 
 <main>
-
-  <!-- MODE SELECTOR -->
   <div class="mode-selector">
     <button class="mode-btn active" id="btnSend" onclick="setMode('send')">
       <span class="icon">💻</span>
@@ -419,10 +174,10 @@
     </button>
   </div>
 
-  <!-- VIDEO -->
   <div class="video-wrap" id="videoWrap">
     <video id="localVideo" autoplay muted playsinline></video>
-    <canvas id="motionCanvas" style="display:none; position:absolute; inset:0;"></canvas>
+    <img id="remoteImg" alt="원격 영상"/>
+    <canvas id="captureCanvas" style="display:none"></canvas>
     <div class="video-overlay">
       <div class="corner-br"></div>
       <div class="corner-tr"></div>
@@ -435,22 +190,20 @@
     </div>
   </div>
 
-  <!-- MOTION ALERT -->
   <div class="motion-bar" id="motionBar">
-    <div class="motion-icon">⚠️</div>
+    <span style="font-size:18px">⚠️</span>
     <div class="motion-text">움직임 감지됨!</div>
     <div class="motion-time" id="motionTime"></div>
   </div>
 
-  <!-- INFO PANEL -->
   <div class="info-panel">
     <div class="info-item">
       <div class="info-label">연결 상태</div>
       <div class="info-value" id="connStatus">대기 중</div>
     </div>
     <div class="info-item">
-      <div class="info-label">접속자 수</div>
-      <div class="info-value" id="viewerCount">0 명</div>
+      <div class="info-label">전송 방식</div>
+      <div class="info-value" id="fpsInfo">-</div>
     </div>
     <div class="info-item">
       <div class="info-label">해상도</div>
@@ -462,9 +215,14 @@
     </div>
   </div>
 
-  <!-- SEND MODE UI -->
+  <!-- 송출 모드 UI -->
   <div id="sendUI" class="controls">
     <button class="btn btn-primary" id="startBtn" onclick="startCamera()">📷 카메라 시작</button>
+    <div class="slider-row" id="qualityRow">
+      <div class="slider-label">화질</div>
+      <input type="range" id="quality" min="1" max="10" value="5" oninput="document.getElementById('qualVal').textContent=this.value">
+      <div class="slider-val" id="qualVal">5</div>
+    </div>
     <div class="slider-row" id="sensitivityRow">
       <div class="slider-label">모션 감도</div>
       <input type="range" id="sensitivity" min="5" max="50" value="20" oninput="document.getElementById('sensVal').textContent=this.value">
@@ -473,153 +231,88 @@
     <button class="btn btn-secondary" id="stopBtn" onclick="stopCamera()" style="display:none">■ 카메라 중지</button>
   </div>
 
-  <!-- ROOM CODE (송출 중일 때 표시) -->
   <div class="code-box" id="codeBox">
     <div class="code-label">접속 코드 — 휴대폰에 입력하세요</div>
     <div class="code-value" id="roomCode">------</div>
-    <div class="code-hint">
-      같은 파일을 휴대폰 브라우저로 열고<br>
-      수신 모드에서 위 코드를 입력하면 됩니다
-    </div>
+    <div class="code-hint">휴대폰 브라우저에서 같은 주소를 열고<br>수신 모드에서 위 코드를 입력하세요</div>
   </div>
 
-  <!-- RECV MODE UI -->
+  <!-- 수신 모드 UI -->
   <div id="recvUI" class="controls" style="display:none">
     <div class="join-wrap show" id="joinWrap">
-      <input class="code-input" id="codeInput" maxlength="6" placeholder="코드 입력" oninput="this.value=this.value.toUpperCase()">
+      <input class="code-input" id="codeInput" maxlength="6" placeholder="코드입력" oninput="this.value=this.value.toUpperCase()">
       <button class="btn btn-primary" onclick="joinRoom()">🔗 연결하기</button>
     </div>
     <button class="btn btn-outline" id="disconnectBtn" onclick="disconnect()" style="display:none">연결 해제</button>
   </div>
 
-  <!-- PEER STATUS -->
-  <div class="peer-status show" id="peerStatus">PeerJS 라이브러리 로딩 중...</div>
-
-  <!-- LOG -->
-  <div class="log-wrap show" id="logWrap">
+  <div class="log-wrap">
     <div class="log-title">SYSTEM LOG</div>
     <div id="logContent"></div>
   </div>
-
 </main>
 
-<footer>MTI HOME SECURITY v1.0</footer>
+<footer>MTI HOME SECURITY v2.0</footer>
 
-<!-- PeerJS CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js"></script>
 <script>
-// ── STATE ──
+// ── 상태 ──
 let mode = 'send';
 let localStream = null;
-let peer = null;
-let activeConns = [];
-let motionTimer = null;
+let roomCode = '';
+let sendTimer = null;
+let recvTimer = null;
 let prevFrame = null;
-let animFrameId = null;
+let motionCooldown = false;
+let frameCount = 0;
 
-// ── LOG ──
+// API 경로 (Vercel 서버리스)
+const API = '/api/signal';
+
+// ── 로그 ──
 function log(msg, type='') {
   const d = document.getElementById('logContent');
-  const t = now();
   const line = document.createElement('div');
   line.className = 'log-line ' + type;
-  line.textContent = `[${t}] ${msg}`;
+  line.textContent = '[' + new Date().toLocaleTimeString('ko-KR',{hour12:false}) + '] ' + msg;
   d.appendChild(line);
   d.scrollTop = d.scrollHeight;
 }
 
-function now() {
-  return new Date().toLocaleTimeString('ko-KR', {hour12:false});
-}
-
-// ── TIMESTAMP ──
+// ── 타임스탬프 ──
 function tickTimestamp() {
-  const el = document.getElementById('timestamp');
-  el.textContent = new Date().toLocaleString('ko-KR', {hour12:false});
+  document.getElementById('timestamp').textContent = new Date().toLocaleString('ko-KR',{hour12:false});
   setTimeout(tickTimestamp, 1000);
 }
 tickTimestamp();
 
-// ── MODE ──
+// ── 랜덤 6자리 코드 ──
+function makeCode() {
+  return Math.random().toString(36).substring(2,8).toUpperCase();
+}
+
+// ── 모드 전환 ──
 function setMode(m) {
   mode = m;
   document.getElementById('btnSend').classList.toggle('active', m==='send');
   document.getElementById('btnRecv').classList.toggle('active', m==='recv');
   document.getElementById('sendUI').style.display = m==='send' ? 'flex' : 'none';
   document.getElementById('recvUI').style.display = m==='recv' ? 'flex' : 'none';
-  document.getElementById('codeBox').classList.toggle('show', false);
-
-  if(m==='send') {
-    document.getElementById('sendUI').style.flexDirection = 'column';
-  }
+  document.getElementById('sendUI').style.flexDirection = 'column';
   if(m==='recv') {
     stopCamera();
+    document.getElementById('localVideo').style.display = 'none';
+    document.getElementById('remoteImg').style.display = 'none';
     document.getElementById('noSignal').style.display = 'flex';
-    document.getElementById('localVideo').srcObject = null;
   }
-  log('모드 변경: ' + (m==='send'?'송출':'수신'));
+  log('모드: ' + (m==='send'?'송출':'수신'));
 }
 
-// ── ICE/TURN 설정 ──
-const ICE_CONFIG = {
-  iceServers: [
-    { urls: 'stun:stun.l.google.com:19302' },
-    { urls: 'stun:stun1.l.google.com:19302' },
-    { urls: 'turn:home-cctv.metered.live:80',                        username: 'NTquZie3c8-yuuDhkSQAMIjLOOJ6PCDl0OwUI-JjErAzr1W7', credential: 'NTquZie3c8-yuuDhkSQAMIjLOOJ6PCDl0OwUI-JjErAzr1W7' },
-    { urls: 'turn:home-cctv.metered.live:443',                       username: 'NTquZie3c8-yuuDhkSQAMIjLOOJ6PCDl0OwUI-JjErAzr1W7', credential: 'NTquZie3c8-yuuDhkSQAMIjLOOJ6PCDl0OwUI-JjErAzr1W7' },
-    { urls: 'turn:home-cctv.metered.live:443?transport=tcp',         username: 'NTquZie3c8-yuuDhkSQAMIjLOOJ6PCDl0OwUI-JjErAzr1W7', credential: 'NTquZie3c8-yuuDhkSQAMIjLOOJ6PCDl0OwUI-JjErAzr1W7' },
-    { urls: 'turns:home-cctv.metered.live:443?transport=tcp',        username: 'NTquZie3c8-yuuDhkSQAMIjLOOJ6PCDl0OwUI-JjErAzr1W7', credential: 'NTquZie3c8-yuuDhkSQAMIjLOOJ6PCDl0OwUI-JjErAzr1W7' }
-  ]
-};
-
-// ── PEER INIT ──
-function initPeer(id) {
-  if(peer) { peer.destroy(); peer = null; }
-  const opts = { debug: 0, config: ICE_CONFIG };
-  peer = id ? new Peer(id, opts) : new Peer(opts);
-
-  peer.on('open', (myId) => {
-    log('PeerJS 연결 완료: ' + myId, 'ok');
-    document.getElementById('peerStatus').textContent = 'PeerJS 준비 완료';
-    if(mode === 'send') {
-      document.getElementById('roomCode').textContent = myId.slice(0,6).toUpperCase();
-      document.getElementById('codeBox').classList.add('show');
-      document.getElementById('connStatus').textContent = '대기 중';
-      document.getElementById('connStatus').className = 'info-value amber';
-    }
-  });
-
-  peer.on('call', (call) => {
-    if(!localStream) { log('스트림 없음, 연결 거부', 'err'); return; }
-    call.answer(localStream);
-    activeConns.push(call);
-    updateViewerCount();
-    log('휴대폰 연결됨!', 'ok');
-    document.getElementById('connStatus').textContent = '연결됨';
-    document.getElementById('connStatus').className = 'info-value green';
-
-    call.on('close', () => {
-      activeConns = activeConns.filter(c => c !== call);
-      updateViewerCount();
-      log('휴대폰 연결 종료');
-      if(activeConns.length===0) {
-        document.getElementById('connStatus').textContent = '대기 중';
-        document.getElementById('connStatus').className = 'info-value amber';
-      }
-    });
-  });
-
-  peer.on('error', (e) => {
-    log('오류: ' + e.message, 'err');
-  });
-}
-
-// ── CAMERA ──
+// ── 카메라 시작 ──
 async function startCamera() {
   try {
     log('카메라 접근 요청 중...');
     localStream = await navigator.mediaDevices.getUserMedia({
-      video: { width:{ideal:1280}, height:{ideal:720}, facingMode:'environment' },
+      video: { width:{ideal:1280}, height:{ideal:720} },
       audio: false
     });
     const v = document.getElementById('localVideo');
@@ -630,193 +323,189 @@ async function startCamera() {
     document.getElementById('recDot').classList.add('active');
     document.getElementById('startBtn').style.display = 'none';
     document.getElementById('stopBtn').style.display = 'block';
+    document.getElementById('qualityRow').classList.add('show');
     document.getElementById('sensitivityRow').classList.add('show');
     document.getElementById('motionStatus').textContent = '켜짐';
     document.getElementById('motionStatus').className = 'info-value green';
 
     v.onloadedmetadata = () => {
-      document.getElementById('resolution').textContent =
-        v.videoWidth + '×' + v.videoHeight;
+      document.getElementById('resolution').textContent = v.videoWidth + '×' + v.videoHeight;
     };
 
-    log('카메라 시작됨', 'ok');
-    initPeer();
-    startMotionDetect();
+    roomCode = makeCode();
+    document.getElementById('roomCode').textContent = roomCode;
+    document.getElementById('codeBox').classList.add('show');
+    document.getElementById('connStatus').textContent = '송출 중';
+    document.getElementById('connStatus').className = 'info-value green';
+    document.getElementById('fpsInfo').textContent = '서버 중계';
+    document.getElementById('fpsInfo').className = 'info-value green';
+
+    log('카메라 시작! 코드: ' + roomCode, 'ok');
+    startSending();
 
   } catch(e) {
     log('카메라 오류: ' + e.message, 'err');
-    if(e.name === 'NotAllowedError') {
-      alert('카메라 권한을 허용해 주세요.\n브라우저 주소창 왼쪽 🔒 아이콘을 클릭하세요.');
-    }
+    if(e.name==='NotAllowedError') alert('카메라 권한을 허용해 주세요.');
   }
 }
 
+// ── 카메라 중지 ──
 function stopCamera() {
-  if(localStream) {
-    localStream.getTracks().forEach(t => t.stop());
-    localStream = null;
-  }
-  stopMotionDetect();
+  if(sendTimer) clearInterval(sendTimer);
+  sendTimer = null;
+  if(localStream) { localStream.getTracks().forEach(t=>t.stop()); localStream=null; }
   document.getElementById('localVideo').srcObject = null;
   document.getElementById('noSignal').style.display = 'flex';
   document.getElementById('statusBadge').classList.remove('show');
   document.getElementById('recDot').classList.remove('active');
   document.getElementById('startBtn').style.display = 'block';
   document.getElementById('stopBtn').style.display = 'none';
+  document.getElementById('qualityRow').classList.remove('show');
   document.getElementById('sensitivityRow').classList.remove('show');
   document.getElementById('codeBox').classList.remove('show');
+  document.getElementById('connStatus').textContent = '대기 중';
+  document.getElementById('connStatus').className = 'info-value';
+  document.getElementById('fpsInfo').textContent = '-';
+  document.getElementById('fpsInfo').className = 'info-value';
   document.getElementById('resolution').textContent = '-';
   document.getElementById('motionStatus').textContent = '꺼짐';
   document.getElementById('motionStatus').className = 'info-value';
-  document.getElementById('connStatus').textContent = '대기 중';
-  document.getElementById('connStatus').className = 'info-value';
-  activeConns = [];
-  updateViewerCount();
-  if(peer) { peer.destroy(); peer = null; }
+  prevFrame = null;
   log('카메라 중지됨');
 }
 
-// ── JOIN (수신 모드) ──
-function joinRoom() {
-  const code = document.getElementById('codeInput').value.trim().toLowerCase();
+// ── 프레임 전송 (송출 측) ──
+function startSending() {
+  const video = document.getElementById('localVideo');
+  const canvas = document.getElementById('captureCanvas');
+  const ctx = canvas.getContext('2d');
+
+  sendTimer = setInterval(async () => {
+    if(!localStream || video.readyState < 2) return;
+
+    const q = parseInt(document.getElementById('quality').value) / 10;
+    canvas.width = 640; canvas.height = 360;
+    ctx.drawImage(video, 0, 0, 640, 360);
+
+    // 모션 감지
+    detectMotion(ctx, canvas);
+
+    const dataUrl = canvas.toDataURL('image/jpeg', q);
+
+    try {
+      await fetch(API + '?room=' + roomCode + '&action=push', {
+        method: 'POST',
+        headers: {'Content-Type': 'text/plain'},
+        body: dataUrl
+      });
+      frameCount++;
+    } catch(e) {
+      log('전송 오류: ' + e.message, 'err');
+    }
+  }, 150); // 약 6~7 fps
+}
+
+// ── 수신 측 연결 ──
+async function joinRoom() {
+  const code = document.getElementById('codeInput').value.trim().toUpperCase();
   if(code.length < 4) { alert('코드를 입력해 주세요'); return; }
-  log('연결 시도: ' + code.toUpperCase());
+
+  log('연결 시도: ' + code);
   document.getElementById('connStatus').textContent = '연결 중...';
   document.getElementById('connStatus').className = 'info-value amber';
 
-  if(peer) { peer.destroy(); }
-  peer = new Peer({ debug:0, config: ICE_CONFIG });
-
-  peer.on('open', () => {
-    const call = peer.call(code, getFakeStream());
-    call.on('stream', (remoteStream) => {
-      const v = document.getElementById('localVideo');
-      v.srcObject = remoteStream;
-      v.style.display = 'block';
-      v.muted = false;
-      document.getElementById('noSignal').style.display = 'none';
-      document.getElementById('statusBadge').classList.add('show');
-      document.getElementById('connStatus').textContent = '수신 중';
-      document.getElementById('connStatus').className = 'info-value green';
-      document.getElementById('joinWrap').classList.remove('show');
-      document.getElementById('disconnectBtn').style.display = 'block';
-      log('영상 수신 시작!', 'ok');
-    });
-    call.on('error', e => log('통화 오류: '+e.message,'err'));
-    call.on('close', () => {
-      log('연결 종료됨','warn');
-      document.getElementById('connStatus').textContent = '연결 끊김';
-      document.getElementById('connStatus').className = 'info-value red';
-    });
-  });
-  peer.on('error', e => {
-    log('연결 실패: '+e.message,'err');
-    document.getElementById('connStatus').textContent = '연결 실패';
-    document.getElementById('connStatus').className = 'info-value red';
-  });
-}
-
-function getFakeStream() {
-  // 수신 측에서 call을 위해 빈 오디오 스트림 생성
+  // 방 존재 확인
   try {
-    const ctx = new AudioContext();
-    const dest = ctx.createMediaStreamDestination();
-    return dest.stream;
+    const res = await fetch(API + '?room=' + code + '&action=check');
+    const data = await res.json();
+    if(!data.alive) {
+      log('방을 찾을 수 없습니다. 코드를 확인하세요.', 'err');
+      document.getElementById('connStatus').textContent = '연결 실패';
+      document.getElementById('connStatus').className = 'info-value red';
+      return;
+    }
   } catch(e) {
-    return new MediaStream();
+    log('서버 오류: ' + e.message, 'err');
+    return;
   }
+
+  roomCode = code;
+  document.getElementById('joinWrap').classList.remove('show');
+  document.getElementById('disconnectBtn').style.display = 'block';
+  document.getElementById('noSignal').style.display = 'none';
+  document.getElementById('remoteImg').style.display = 'block';
+  document.getElementById('statusBadge').classList.add('show');
+  document.getElementById('connStatus').textContent = '수신 중';
+  document.getElementById('connStatus').className = 'info-value green';
+  document.getElementById('fpsInfo').textContent = '서버 중계';
+  document.getElementById('fpsInfo').className = 'info-value green';
+  log('연결 성공!', 'ok');
+  startReceiving(code);
 }
 
+// ── 프레임 수신 (수신 측) ──
+function startReceiving(code) {
+  const img = document.getElementById('remoteImg');
+  let lastTs = 0;
+
+  recvTimer = setInterval(async () => {
+    try {
+      const res = await fetch(API + '?room=' + code + '&action=pull&t=' + Date.now());
+      if(res.status === 204) return; // 새 프레임 없음
+
+      const data = await res.json();
+      if(data.ts !== lastTs) {
+        img.src = data.frame;
+        lastTs = data.ts;
+      }
+    } catch(e) {
+      // 일시적 오류는 무시
+    }
+  }, 150);
+}
+
+// ── 연결 해제 ──
 function disconnect() {
-  if(peer) { peer.destroy(); peer = null; }
-  document.getElementById('localVideo').srcObject = null;
+  if(recvTimer) clearInterval(recvTimer);
+  recvTimer = null;
+  document.getElementById('remoteImg').style.display = 'none';
+  document.getElementById('remoteImg').src = '';
   document.getElementById('noSignal').style.display = 'flex';
   document.getElementById('statusBadge').classList.remove('show');
   document.getElementById('connStatus').textContent = '대기 중';
   document.getElementById('connStatus').className = 'info-value';
+  document.getElementById('fpsInfo').textContent = '-';
   document.getElementById('joinWrap').classList.add('show');
   document.getElementById('disconnectBtn').style.display = 'none';
   log('연결 해제됨');
 }
 
-// ── VIEWER COUNT ──
-function updateViewerCount() {
-  const n = activeConns.length;
-  document.getElementById('viewerCount').textContent = n + ' 명';
-  document.getElementById('viewerCount').className = 'info-value ' + (n>0?'green':'');
-}
-
-// ── MOTION DETECTION ──
-function startMotionDetect() {
-  const video = document.getElementById('localVideo');
-  const canvas = document.getElementById('motionCanvas');
-  const ctx = canvas.getContext('2d', {willReadFrequently:true});
-
-  function detect() {
-    if(!localStream) return;
-    if(video.readyState < 2) { animFrameId = requestAnimationFrame(detect); return; }
-
-    canvas.width = 160; canvas.height = 90;
-    ctx.drawImage(video, 0, 0, 160, 90);
-
-    const frame = ctx.getImageData(0, 0, 160, 90);
-    if(prevFrame) {
-      let diff = 0;
-      const d1 = frame.data, d2 = prevFrame.data;
-      for(let i=0; i<d1.length; i+=16) {
-        diff += Math.abs(d1[i]-d2[i]) + Math.abs(d1[i+1]-d2[i+1]) + Math.abs(d1[i+2]-d2[i+2]);
-      }
-      const threshold = parseInt(document.getElementById('sensitivity').value);
-      const avg = diff / (160*90/4);
-      if(avg > threshold) {
-        triggerMotion();
-      }
+// ── 모션 감지 ──
+function detectMotion(ctx, canvas) {
+  const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  if(prevFrame) {
+    let diff = 0;
+    const d1 = frame.data, d2 = prevFrame.data;
+    for(let i=0; i<d1.length; i+=16) {
+      diff += Math.abs(d1[i]-d2[i]) + Math.abs(d1[i+1]-d2[i+1]) + Math.abs(d1[i+2]-d2[i+2]);
     }
-    prevFrame = frame;
-    animFrameId = requestAnimationFrame(detect);
+    const threshold = parseInt(document.getElementById('sensitivity').value);
+    const avg = diff / (canvas.width * canvas.height / 4);
+    if(avg > threshold && !motionCooldown) triggerMotion();
   }
-
-  // 1초마다 체크
-  function loop() {
-    if(!localStream) return;
-    detect();
-    motionTimer = setTimeout(loop, 1000);
-  }
-  motionTimer = setTimeout(loop, 1500);
+  prevFrame = frame;
 }
 
-function stopMotionDetect() {
-  if(motionTimer) clearTimeout(motionTimer);
-  if(animFrameId) cancelAnimationFrame(animFrameId);
-  prevFrame = null;
-}
-
-let motionCooldown = false;
 function triggerMotion() {
-  if(motionCooldown) return;
   motionCooldown = true;
   const bar = document.getElementById('motionBar');
-  document.getElementById('motionTime').textContent = now();
+  document.getElementById('motionTime').textContent = new Date().toLocaleTimeString('ko-KR',{hour12:false});
   bar.classList.add('show');
   log('⚠️ 움직임 감지!', 'warn');
-  setTimeout(() => {
-    bar.classList.remove('show');
-    motionCooldown = false;
-  }, 5000);
+  setTimeout(() => { bar.classList.remove('show'); motionCooldown=false; }, 5000);
 }
 
-// ── INIT ──
-log('시스템 시작됨', 'ok');
-log('PeerJS 라이브러리 로딩 중...');
-window.addEventListener('load', () => {
-  if(typeof Peer !== 'undefined') {
-    log('PeerJS 로드 완료', 'ok');
-    document.getElementById('peerStatus').textContent = 'PeerJS 준비됨 — 카메라를 시작하세요';
-  } else {
-    log('PeerJS 로드 실패. 인터넷 연결을 확인하세요.', 'err');
-    document.getElementById('peerStatus').textContent = '⚠️ PeerJS 로드 실패';
-  }
-});
+log('시스템 시작됨 (서버 중계 방식)', 'ok');
 </script>
 </body>
 </html>
