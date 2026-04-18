@@ -1,1 +1,5 @@
-{"rewrites":[{"source":"/(.*)","destination":"/index.html"}]}
+{
+  "functions": {
+    "api/signal.js": { "memory": 512, "maxDuration": 10 }
+  }
+}
