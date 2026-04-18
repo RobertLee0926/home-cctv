@@ -560,10 +560,21 @@ function setMode(m) {
   log('모드 변경: ' + (m==='send'?'송출':'수신'));
 }
 
+// ── ICE/TURN 설정 ──
+const ICE_CONFIG = {
+  iceServers: [
+    { urls: 'stun:stun.l.google.com:19302' },
+    { urls: 'stun:stun1.l.google.com:19302' },
+    { urls: 'turn:openrelay.metered.ca:80',    username: 'openrelayproject', credential: 'openrelayproject' },
+    { urls: 'turn:openrelay.metered.ca:443',   username: 'openrelayproject', credential: 'openrelayproject' },
+    { urls: 'turn:openrelay.metered.ca:443?transport=tcp', username: 'openrelayproject', credential: 'openrelayproject' }
+  ]
+};
+
 // ── PEER INIT ──
 function initPeer(id) {
   if(peer) { peer.destroy(); peer = null; }
-  const opts = { debug: 0 };
+  const opts = { debug: 0, config: ICE_CONFIG };
   peer = id ? new Peer(id, opts) : new Peer(opts);
 
   peer.on('open', (myId) => {
@@ -673,7 +684,7 @@ function joinRoom() {
   document.getElementById('connStatus').className = 'info-value amber';
 
   if(peer) { peer.destroy(); }
-  peer = new Peer({ debug:0 });
+  peer = new Peer({ debug:0, config: ICE_CONFIG });
 
   peer.on('open', () => {
     const call = peer.call(code, getFakeStream());
